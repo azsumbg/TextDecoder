@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="TextDecoder/TextDecoder.vcxproj" Id="db85b506-0f5f-4d52-931e-d85134c04032" />
+</Solution>
