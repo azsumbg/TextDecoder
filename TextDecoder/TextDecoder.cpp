@@ -46,6 +46,8 @@ size_t decode::Decode(const wchar_t* file_name, BAG<wchar_t>& Bag)
 {
 	size_t ret{ 0 };
 
+	Bag.clear();
+
 	if (FileExist(file_name))
 	{
 		std::wifstream save(file_name);

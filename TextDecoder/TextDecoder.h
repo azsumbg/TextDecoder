@@ -153,7 +153,7 @@ namespace decode
 			{
 				if (next_pos + 1 <= max_size)
 				{
-					for (size_t i = next_pos; i > 0; ++i)mPtr[i] = mPtr[i - 1];
+					for (size_t i = next_pos; i > 0; --i)mPtr[i] = mPtr[i - 1];
 
 					*mPtr = element;
 
@@ -170,7 +170,7 @@ namespace decode
 						mPtr = temp;
 						temp = nullptr;
 
-						for (size_t i = next_pos; i > 0; ++i)mPtr[i] = mPtr[i - 1];
+						for (size_t i = next_pos; i > 0; --i)mPtr[i] = mPtr[i - 1];
 
 						*mPtr = element;
 
@@ -186,7 +186,7 @@ namespace decode
 			{
 				if (next_pos + 1 <= max_size)
 				{
-					for (size_t i = next_pos; i > 0; ++i)mPtr[i] = mPtr[i - 1];
+					for (size_t i = next_pos; i > 0; --i)mPtr[i] = mPtr[i - 1];
 
 					*mPtr = *element;
 
@@ -203,7 +203,7 @@ namespace decode
 						mPtr = temp;
 						temp = nullptr;
 
-						for (size_t i = next_pos; i > 0; ++i)mPtr[i] = mPtr[i - 1];
+						for (size_t i = next_pos; i > 0; --i)mPtr[i] = mPtr[i - 1];
 
 						*mPtr = *element;
 
