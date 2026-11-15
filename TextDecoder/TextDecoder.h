@@ -8,6 +8,7 @@
 
 #include <cstdlib>
 #include <fstream>
+#include <iterator>
 
 constexpr int ERR_PTR = 6001;
 constexpr int ERR_PARAM = 6002;
@@ -348,8 +349,156 @@ namespace decode
 			}
 		}
 
+		class iterator
+		{
+		private:
+			T* it_ptr{ nullptr };
+			T* container_ptr{ nullptr };
+			size_t container_size{ 0 };
 
+		public:
+			using iterator_category = std::contiguous_iterator_tag;
+			using difference_type = ptrdiff_t;
+			using value_type = T;
+			using pointer = T*;
+			using reference = T&;
 
+			friend class BAG<T>;
+
+			iterator(T* init_ptr, BAG<T>& this_bag) :it_ptr{ init_ptr }
+			{
+				container_ptr = this_bag.mPtr;
+				container_size = this_bag.next_pos;
+			}
+
+			iterator& operator++ ()
+			{
+				++it_ptr;
+
+				return(*this);
+			}
+			iterator operator++ (int)
+			{
+				T* temp{ it_ptr };
+				++(*this);
+
+				return temp;
+			}
+
+			iterator& operator-- ()
+			{
+				--it_ptr;
+
+				return(*this);
+			}
+			iterator operator-- (int)
+			{
+				T* temp{ it_ptr };
+				--(*this);
+
+				return temp;
+			}
+
+			iterator& operator+ (int step)
+			{
+				if (it_ptr > container_ptr + container_size)throw EXCEPTION(ERR_ITERATOR);
+
+				it_ptr += step;
+
+				return (*this);
+			}
+			iterator& operator- (int step)
+			{
+				if (it_ptr < container_ptr)throw EXCEPTION(ERR_ITERATOR);
+
+				it_ptr -= step;
+
+				return(*this);
+			}
+
+			iterator& operator+= (int step)
+			{
+				if (it_ptr > container_ptr + container_size)throw EXCEPTION(ERR_ITERATOR);
+
+				it_ptr += step;
+
+				return (*this);
+			}
+			iterator& operator-= (int step)
+			{
+				if (it_ptr < container_ptr)throw EXCEPTION(ERR_ITERATOR);
+
+				it_ptr-=step;
+
+				return(*this);
+			}
+
+			pointer operator-> () const
+			{
+				return it_ptr;
+			}
+			reference operator* ()
+			{
+				return *it_ptr;
+			}
+
+			friend bool operator== (const iterator& first, const iterator& second) const
+			{
+				return (first.it_ptr == second.it_ptr);
+			}
+			friend bool operator>= (const iterator& first, const iterator& second) const
+			{
+				return (first.it_ptr >= second.it_ptr);
+			}
+			friend bool operator<= (const iterator& first, const iterator& second) const
+			{
+				return (first.it_ptr <= second.it_ptr);
+			}
+			friend bool operator> (const iterator & first, const iterator & second) const
+			{
+				return (first.it_ptr > second.it_ptr);
+			}
+			friend bool operator< (const iterator& first, const iterator& second) const
+			{
+				return (first.it_ptr < second.it_ptr);
+			}
+			friend bool operator!= (const iterator& first, const iterator& second) const
+			{
+				return (first.it_ptr != second.it_ptr);
+			}
+		};
+
+		iterator begin()
+		{
+			return iterator(mPtr, (*this));
+		}
+		iterator end()
+		{
+			return(mPtr + next_pos, (*this));
+		}
+
+		void erase(iterator element)
+		{
+			size_t which_element = 0;
+			bool found = false;
+
+			for (size_t i = 0; i < next_pos; ++i)
+			{
+				if (element.it_ptr == mPtr + i)
+				{
+					which_element = i;
+					found = true;
+				}
+			}
+
+			if (found)
+			{
+				erase(which_element);
+				return;
+			}
+
+			throw EXCEPTION(ERR_ITERATOR);
+		}
 	};
 
 
