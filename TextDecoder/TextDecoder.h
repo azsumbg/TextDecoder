@@ -442,27 +442,27 @@ namespace decode
 				return *it_ptr;
 			}
 
-			friend bool operator== (const iterator& first, const iterator& second) const
+			friend bool operator== (const iterator& first, const iterator& second)
 			{
 				return (first.it_ptr == second.it_ptr);
 			}
-			friend bool operator>= (const iterator& first, const iterator& second) const
+			friend bool operator>= (const iterator& first, const iterator& second)
 			{
 				return (first.it_ptr >= second.it_ptr);
 			}
-			friend bool operator<= (const iterator& first, const iterator& second) const
+			friend bool operator<= (const iterator& first, const iterator& second)
 			{
 				return (first.it_ptr <= second.it_ptr);
 			}
-			friend bool operator> (const iterator & first, const iterator & second) const
+			friend bool operator> (const iterator & first, const iterator & second)
 			{
 				return (first.it_ptr > second.it_ptr);
 			}
-			friend bool operator< (const iterator& first, const iterator& second) const
+			friend bool operator< (const iterator& first, const iterator& second)
 			{
 				return (first.it_ptr < second.it_ptr);
 			}
-			friend bool operator!= (const iterator& first, const iterator& second) const
+			friend bool operator!= (const iterator& first, const iterator& second)
 			{
 				return (first.it_ptr != second.it_ptr);
 			}
@@ -501,5 +501,7 @@ namespace decode
 		}
 	};
 
+	bool TEXTDECODER_API FileExist(const wchar_t* file_name);
 
+	size_t TEXTDECODER_API Decode(const wchar_t* file_name, BAG<wchar_t>& Bag);
 }
