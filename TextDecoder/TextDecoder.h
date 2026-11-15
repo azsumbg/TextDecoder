@@ -474,7 +474,7 @@ namespace decode
 		}
 		iterator end()
 		{
-			return(mPtr + next_pos, (*this));
+			return iterator(mPtr + next_pos, (*this));
 		}
 
 		void erase(iterator element)
